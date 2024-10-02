@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OrderService.Models;
+using OrderDBContext;
+using OrderModels;
 
 namespace OrderService.Controllers
 {
@@ -40,20 +41,6 @@ namespace OrderService.Controllers
             return Ok(orders);
         }
 
-        [Route("customer")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
-        {
-            var customers= await _context.Customers
-                .Select(c => new CustomerVM
-                {
-                    Id = c.Id,
-                    Name=c.Name
-                })
-                .ToListAsync();
-            return Ok(customers);
-        }
-
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Order>> GetOrder(int id)
         //{
@@ -61,14 +48,6 @@ namespace OrderService.Controllers
         //    if (order == null) return NotFound();
         //    return order;
         //}
-
-        //[HttpPost]
-        //public async Task<ActionResult<Order>> PostOrder(Order order)
-        //{
-        //    _context.Orders.Add(order);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetOrder", new { id = order.Id }, order);
-        //}
+       
     }
 }

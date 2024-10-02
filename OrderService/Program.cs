@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using OrderService.Models;
+using Newtonsoft.Json;
+using OrderDBContext;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +19,13 @@ builder.Services.AddCors(options =>
 
 
 builder.Services.AddControllers()
-     .AddJsonOptions(options =>
+     .AddNewtonsoftJson(options =>
      {
-         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-     }); ;
+         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; // Ignore null values
+         options.SerializerSettings.Formatting = Formatting.None; // Pretty print if needed
+     });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
