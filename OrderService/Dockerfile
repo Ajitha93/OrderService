@@ -30,7 +30,8 @@ WORKDIR /app
 COPY --from=build /app/out .
 
 # Expose the port the app runs on
-EXPOSE 80
+EXPOSE 81
 
 # Command to run the application
-ENTRYPOINT ["dotnet", "OrderService/OrderService.dll"]
+ENTRYPOINT ["dotnet", "OrderService.dll"]
+#ENTRYPOINT ["./OrderService"] 

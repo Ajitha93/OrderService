@@ -4,6 +4,7 @@ using OrderDBContext;
 
 
 var builder = WebApplication.CreateBuilder(args);
+//builder.WebHost.UseUrls("http://0.0.0.0:81");
 
 // Add services to the container.
 builder.Services.AddCors(options =>
