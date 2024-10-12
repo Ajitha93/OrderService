@@ -21,4 +21,8 @@
     <ProjectReference Include="..\OrderModels\OrderModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
 </Project>
