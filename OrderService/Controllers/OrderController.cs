@@ -41,13 +41,11 @@ namespace OrderService.Controllers
             return Ok(orders);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Order>> GetOrder(int id)
-        //{
-        //    var order = await _context.Orders.Include(o => o.Product).Include(o => o.Customer).FirstOrDefaultAsync(o => o.Id == id);
-        //    if (order == null) return NotFound();
-        //    return order;
-        //}
-       
+        [HttpGet]
+        public  IActionResult TestOrder(int id)
+        {
+            return Ok("Hello from Order API!");
+        }
+
     }
 }
