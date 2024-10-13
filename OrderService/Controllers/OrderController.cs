@@ -17,7 +17,7 @@ namespace OrderService.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("GetOrders")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             var orders = await _context.Orders
@@ -41,10 +41,18 @@ namespace OrderService.Controllers
             return Ok(orders);
         }
 
-        [HttpGet]
+        [HttpGet("TestOrder")]
         public  IActionResult TestOrder(int id)
         {
-            return Ok("Hello from Order API!");
+            List<string> items = new List<string>
+        {
+            "Item 1",
+            "Item 2",
+            "Item 3"
+        };
+
+            return Ok(items);
+            //return Ok("Hello from Order API!");
         }
 
     }
