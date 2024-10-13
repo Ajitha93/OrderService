@@ -88,5 +88,19 @@ namespace OrderUpsertService.Controllers
             }
             
         }
+
+        [HttpGet("TestUpsert")]
+        public IActionResult TestUpsert(int id)
+        {
+            List<string> items = new List<string>
+        {
+            "Item 1",
+            "Item 2",
+            "Item 3"
+        };
+
+            return Ok(items);
+            //return Ok("Hello from OrderUpsert API!");
+        }
     }
 }
