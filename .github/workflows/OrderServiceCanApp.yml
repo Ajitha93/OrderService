@@ -1,10 +1,10 @@
-name: Build and deploy .NET Core application to Web App OrderServiceAG
+name: Build and deploy .NET Core application to Web App OrderServiceCanApp
 on:
   push:
     branches:
     - master
 env:
-  AZURE_WEBAPP_NAME: OrderServiceAG
+  AZURE_WEBAPP_NAME: OrderServiceCanApp
   AZURE_WEBAPP_PACKAGE_PATH: OrderService\publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.OrderServiceAG_D7BE }}
+        publish-profile: ${{ secrets.OrderServiceCanApp_2013 }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
