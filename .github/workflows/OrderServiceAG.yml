@@ -1,14 +1,14 @@
-name: Build and deploy .NET Core application to Web App OrderUpsertService
+name: Build and deploy .NET Core application to Web App OrderServiceAG
 on:
   push:
     branches:
     - master
 env:
-  AZURE_WEBAPP_NAME: OrderUpsertService
-  AZURE_WEBAPP_PACKAGE_PATH: OrderUpsertService\publish
+  AZURE_WEBAPP_NAME: OrderServiceAG
+  AZURE_WEBAPP_PACKAGE_PATH: OrderService\publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
-  WORKING_DIRECTORY: OrderUpsertService
+  WORKING_DIRECTORY: OrderService
 jobs:
   build:
     runs-on: windows-latest
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.OrderUpsertService_4D1C }}
+        publish-profile: ${{ secrets.OrderServiceAG_98AB }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
