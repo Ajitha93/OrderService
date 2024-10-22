@@ -1,3 +1,5 @@
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OrderDBContext;
@@ -29,8 +31,16 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Retrieve connection string from Key Vault
+var keyVaultUrl = "https://orderservicekeyvalut.vault.azure.net/"; // Your Key Vault URL
+var client = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
+KeyVaultSecret secret = client.GetSecret("orderconnectionstring");
+var connectionString = secret.Value;
+
 builder.Services.AddDbContext<RestaurantContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<RestaurantContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
