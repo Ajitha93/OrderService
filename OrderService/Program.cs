@@ -43,7 +43,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddDbContext<RestaurantContext>(options =>
 //               options.UseSqlServer(connectionString));
 
-string sqlConnectionString = "Server=tcp:ordermgtsqlserver1.database.windows.net;Database=orderscan";
+string sqlConnectionString = "Server=tcp:ordermgtsqlserver1.database.windows.net,1433;Database=orderscan";
 
 // Use DefaultAzureCredential to authenticate via Managed Identity
 var credential = new DefaultAzureCredential();
@@ -54,6 +54,9 @@ var connection = new SqlConnection(sqlConnectionString);
 connection.AccessToken = token.Token;
 
 await connection.OpenAsync();
+
+builder.Services.AddDbContext<RestaurantContext>(options =>
+    options.UseSqlServer(connection));
 
 //builder.Services.AddDbContext<RestaurantContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
