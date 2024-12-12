@@ -1,5 +1,6 @@
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OrderDBContext;
@@ -41,8 +42,22 @@ builder.Services.AddSwaggerGen();
 
 //builder.Services.AddDbContext<RestaurantContext>(options =>
 //               options.UseSqlServer(connectionString));
-builder.Services.AddDbContext<RestaurantContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+string sqlConnectionString = "Server=tcp:ordermgtsqlserver1.database.windows.net;Database=orderscan";
+
+// Use DefaultAzureCredential to authenticate via Managed Identity
+var credential = new DefaultAzureCredential();
+var token = await credential.GetTokenAsync(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
+
+// Use the token to authenticate to Azure SQL Database
+var connection = new SqlConnection(sqlConnectionString);
+connection.AccessToken = token.Token;
+
+await connection.OpenAsync();
+
+//builder.Services.AddDbContext<RestaurantContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
