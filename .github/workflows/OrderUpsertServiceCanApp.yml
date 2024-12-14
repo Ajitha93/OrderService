@@ -4,7 +4,7 @@ on:
     branches:
     - master
 env:
-  AZURE_WEBAPP_NAME: OrderUpsertServiceCanApp
+  AZURE_WEBAPP_NAME: OrderUpsertServiceCanadaApp
   AZURE_WEBAPP_PACKAGE_PATH: OrderUpsertService\publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
