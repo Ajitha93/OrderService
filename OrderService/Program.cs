@@ -2,6 +2,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using OrderDBContext;
 
@@ -46,22 +47,24 @@ builder.Services.AddControllers()
 // Managed Identity start
 //string sqlConnectionString = "Server=tcp:ordermgtsqlserver1.database.windows.net,1433;Database=orderscan";
 
-//// Use DefaultAzureCredential to authenticate via Managed Identity
-//var credential = new DefaultAzureCredential();
-//var token = await credential.GetTokenAsync(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
+string sqlConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-//// Use the token to authenticate to Azure SQL Database
-//var connection = new SqlConnection(sqlConnectionString);
-//connection.AccessToken = token.Token;
+// Use DefaultAzureCredential to authenticate via Managed Identity
+var credential = new DefaultAzureCredential();
+var token = await credential.GetTokenAsync(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
 
-//await connection.OpenAsync();
+// Use the token to authenticate to Azure SQL Database
+var connection = new SqlConnection(sqlConnectionString);
+connection.AccessToken = token.Token;
 
-//builder.Services.AddDbContext<RestaurantContext>(options =>
-//    options.UseSqlServer(connection));
-// Managed Identity end
+await connection.OpenAsync();
 
 builder.Services.AddDbContext<RestaurantContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connection));
+// Managed Identity end
+
+//builder.Services.AddDbContext<RestaurantContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
