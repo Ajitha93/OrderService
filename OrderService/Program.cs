@@ -52,13 +52,13 @@ try
 
     // Use DefaultAzureCredential to authenticate via Managed Identity
     var credential = new DefaultAzureCredential();
-    var token = credential.GetToken(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
+    var token = await credential.GetTokenAsync(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
 
     // Use the token to authenticate to Azure SQL Database
     var connection = new SqlConnection(sqlConnectionString);
     connection.AccessToken = token.Token;
 
-    //connection.Open();
+    await connection.OpenAsync();
 
     builder.Services.AddDbContext<RestaurantContext>(options =>
         options.UseSqlServer(connection));
