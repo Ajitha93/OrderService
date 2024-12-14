@@ -42,7 +42,6 @@ builder.Services.AddSwaggerGen();
 //               options.UseSqlServer(connectionString));
 
 // Managed Identity start
-//string sqlConnectionString = "Server=tcp:ordermgtsqlserver1.database.windows.net,1433;Database=orderscan";
 
 string sqlConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
