@@ -42,7 +42,6 @@ builder.Services.AddSwaggerGen();
 //               options.UseSqlServer(connectionString));
 
 // Managed Identity start
-
 string sqlConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Use DefaultAzureCredential to authenticate via Managed Identity
