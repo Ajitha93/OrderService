@@ -48,7 +48,6 @@ string sqlConnectionString = builder.Configuration.GetConnectionString("DefaultC
 var credential = new DefaultAzureCredential();
 var token = await credential.GetTokenAsync(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
 
-
 // Use the token to authenticate to Azure SQL Database
 var connection = new SqlConnection(sqlConnectionString);
 connection.AccessToken = token.Token;
