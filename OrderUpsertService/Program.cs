@@ -10,14 +10,26 @@ using Formatting = Newtonsoft.Json.Formatting;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add CORS services
+// Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
-        builder => builder
-            .AllowAnyOrigin() // or specify origins with .WithOrigins("http://localhost:3000")
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
 });
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAllOrigins",
+//        builder => builder
+//            .AllowAnyOrigin() // or specify origins with .WithOrigins("http://localhost:3000")
+//            .AllowAnyMethod()
+//            .AllowAnyHeader());
+//});
 
 // Add services to the container.
 
