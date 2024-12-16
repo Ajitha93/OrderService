@@ -73,7 +73,7 @@ builder.Services.AddDbContext<RestaurantContext>(options =>
 var app = builder.Build();
 
 // Use CORS
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
