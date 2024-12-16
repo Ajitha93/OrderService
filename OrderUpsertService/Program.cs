@@ -58,7 +58,6 @@ builder.Services.AddDbContext<RestaurantContext>(options =>
     options.UseSqlServer(connection));
 // Managed Identity end
 
-
 var app = builder.Build();
 
 // Use CORS
